@@ -2,20 +2,19 @@
 
 import launch
 import launch.actions
-import launch.substitutions
 import launch_ros.actions
-
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
-from launch.actions import DeclareLaunchArgument
-
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 import os
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     share_dir = get_package_share_directory('sllidar_ros2')
+    simulator_dir = get_package_share_directory('arcanain_simulator')
     rviz_config_file = os.path.join(
             get_package_share_directory('sllidar_ros2'),
             'rviz',
@@ -29,6 +28,12 @@ def generate_launch_description():
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
     
     return LaunchDescription([
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(share_dir, 'launch', 'sllidar_a1_launch.py')
+            ),
+            launch_arguments={'use_sim_time': use_sim_time}.items()
+        ),
 
         Node(package='rviz2',
                     executable='rviz2',
