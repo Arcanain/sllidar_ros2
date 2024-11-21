@@ -67,6 +67,13 @@ ament_target_dependencies(pointcloudfilter
   geometry_msgs
   visualization_msgs
 )
+add_executable(perception_obstacle src/perception_obstacle.cpp)
+ament_target_dependencies(perception_obstacle
+  rclcpp
+  sensor_msgs
+  geometry_msgs
+  visualization_msgs
+)
 ################################################################################
 # Install
 ################################################################################
@@ -79,7 +86,7 @@ install(DIRECTORY config/
 )
 
 install(
-  TARGETS sllidar_node sllidar_client pointcloudfilter
+  TARGETS sllidar_node sllidar_client pointcloudfilter perception_obstacle
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
