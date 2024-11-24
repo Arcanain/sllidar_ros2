@@ -24,10 +24,10 @@ public:
         obstacle_detected_pub = this->create_publisher<std_msgs::msg::Bool>("obstacle_detected", 10);
 
         // 初期化
-        threshold_ = 1.0;          // 円の半径の上限
+        threshold_ = 0.8;          // 円の半径の上限
         min_threshold_ = 0.3;      // 円の半径の下限
-        forward_angle_min_ = -M_PI / 4; // 前方の最小角度 (-45度)
-        forward_angle_max_ = M_PI / 4;  // 前方の最大角度 (+45度)
+        forward_angle_min_ = -M_PI / 10; // 前方の最小角度 (-45度)
+        forward_angle_max_ = M_PI / 10;  // 前方の最大角度 (+45度)
         num_points_ = 30;          // 扇形を構成する頂点の数
     }
 

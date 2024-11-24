@@ -72,13 +72,6 @@ def generate_launch_description():
                          'angle_compensate': angle_compensate, 
                          'scan_mode': scan_mode}],
             output='screen'),
-
-        Node(
-           package='sllidar_ros2',
-           executable='perception_obstacle',
-           name='perception_obstacle',
-           output='screen'),
-
         Node(
             package='rviz2',
             executable='rviz2',
