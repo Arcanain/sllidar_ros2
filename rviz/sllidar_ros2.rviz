@@ -84,19 +84,19 @@ Visualization Manager:
       Enabled: true
       Name: Marker
       Namespaces:
-        {}
+        fov: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /filtered_point_marker
+        Value: /fov_marker
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: laser_frame
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -154,10 +154,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7297961115837097
+      Pitch: 1.5597963333129883
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.080388307571411
+      Yaw: 3.1503891944885254
     Saved:
       - Class: rviz_default_plugins/Orbit
         Distance: 12.960694313049316
