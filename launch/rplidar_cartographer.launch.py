@@ -10,11 +10,11 @@ from ament_index_python.packages import get_package_share_directory
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 import os
+import math
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     share_dir = get_package_share_directory('sllidar_ros2')
-    ps4_dir = get_package_share_directory('odrive_ros2_control')
     simulator_dir = get_package_share_directory('arcanain_simulator')
     rviz_config_file = os.path.join(
             get_package_share_directory('sllidar_ros2'),
@@ -31,13 +31,7 @@ def generate_launch_description():
     return LaunchDescription([
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                os.path.join(ps4_dir, 'launch', 'odrive_ps4_control.py')
-            ),
-            launch_arguments={'use_sim_time': use_sim_time}.items()
-        ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                os.path.join(share_dir, 'launch', 'sllidar_a1_launch.py')
+                os.path.join(share_dir, 'launch', 'sllidar_c1_launch.py')
             ),
             launch_arguments={'use_sim_time': use_sim_time}.items()
         ),
@@ -69,7 +63,7 @@ def generate_launch_description():
             executable='cartographer_node',
             name='cartographer_node',
             output='screen',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': False}],
             arguments=['-configuration_directory', cartographer_config_dir, '-configuration_basename', configuration_basename],
             ),
     ])
