@@ -74,6 +74,18 @@ ament_target_dependencies(perception_obstacle
   geometry_msgs
   visualization_msgs
 )
+add_executable(dbscan_node src/dbscan_node.cpp)
+ament_target_dependencies(dbscan_node
+  rclcpp
+  sensor_msgs
+  visualization_msgs
+)
+
+target_include_directories(dbscan_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
 ################################################################################
 # Install
 ################################################################################
@@ -88,6 +100,15 @@ install(DIRECTORY config/
 install(
   TARGETS sllidar_node sllidar_client pointcloudfilter perception_obstacle
   RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS
+  dbscan_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY include/
+  DESTINATION include/
 )
 
 ################################################################################

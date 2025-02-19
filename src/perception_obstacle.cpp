@@ -58,7 +58,7 @@ private:
             if (angle >= -M_PI && angle <= M_PI)
             {
                 float distance = std::hypot(x - center_x, y - center_y);
-                if (distance < min_threshold_ || distance > threshold_)
+                if (distance < min_threshold_ || distance > threshold_ || angle <= forward_angle_min_ || angle >= forward_angle_max_)
                 {
                     filtered_msg.ranges[i] = std::numeric_limits<float>::infinity(); // フィルタリング
                 }
@@ -95,7 +95,7 @@ private:
 
             // 最も近い点のマーカーを生成
             visualization_msgs::msg::Marker closest_point_marker;
-            closest_point_marker.header.frame_id = "base_link"; // フレームIDは適切なものを指定
+            closest_point_marker.header.frame_id = "laser_frame"; // フレームIDは適切なものを指定
             closest_point_marker.header.stamp = this->get_clock()->now();
             closest_point_marker.ns = "closest_point";
             closest_point_marker.id = 0;
@@ -131,7 +131,7 @@ private:
         {
             // マーカーを削除するために、アクションをDELETEに設定してパブリッシュ
             visualization_msgs::msg::Marker delete_marker;
-            delete_marker.header.frame_id = "base_link"; // フレームIDは適切なものを指定
+            delete_marker.header.frame_id = "laser_frame"; // フレームIDは適切なものを指定
             delete_marker.header.stamp = this->get_clock()->now();
             delete_marker.ns = "closest_point";
             delete_marker.id = 0;
@@ -166,7 +166,7 @@ private:
         yellow_color.b = 0.0;
 
         // フレームID
-        std::string frame_id = "base_link";
+        std::string frame_id = "laser_frame";
 
         // 前方90度のマーカーを作成
         visualization_msgs::msg::Marker fov_marker_forward;
@@ -188,8 +188,8 @@ private:
 
         // マーカーをパブリッシュ
         fov_marker_publisher_->publish(fov_marker_forward);
-        fov_marker_publisher_->publish(fov_marker_backward1);
-        fov_marker_publisher_->publish(fov_marker_backward2);
+        //fov_marker_publisher_->publish(fov_marker_backward1);
+        //fov_marker_publisher_->publish(fov_marker_backward2);
 
         // フィルタリング結果をパブリッシュ
         publisher_->publish(filtered_msg);
