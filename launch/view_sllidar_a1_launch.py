@@ -79,11 +79,17 @@ def generate_launch_description():
            #name='perception_obstacle',
            #output='screen'),
 
+        #Node(
+           #package='sllidar_ros2',
+           #executable='dbscan_node',
+           #name='dbscan_node',
+           #output='screen'),        
+
         Node(
            package='sllidar_ros2',
-           executable='dbscan_node',
-           name='dbscan_node',
-           output='screen'),        
+           executable='alpha_shape',
+           name='alpha_shape',
+           output='screen'),  
 
         Node(
             package='rviz2',

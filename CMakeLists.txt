@@ -37,6 +37,9 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
+find_package(pcl_conversions REQUIRED)
+find_package(pcl_ros REQUIRED)
+find_package(PCL REQUIRED COMPONENTS common io surface)
 ################################################################################
 # Build
 ################################################################################
@@ -45,6 +48,9 @@ include_directories(
   ${SLLIDAR_SDK_PATH}/src
   ${Boost_INCLUDE_DIRS}
 )
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 add_executable(sllidar_node	src/sllidar_node.cpp ${SLLIDAR_SDK_SRC})
 # target_link_libraries(sllidar_node ${ament_cmake_LIBRARIES})
@@ -81,9 +87,31 @@ ament_target_dependencies(dbscan_node
   visualization_msgs
 )
 
+add_executable(alpha_shape src/alpha_shape.cpp)
+ament_target_dependencies(alpha_shape
+  rclcpp
+  sensor_msgs
+  visualization_msgs
+  pcl_conversions
+  pcl_ros
+)
+
+target_include_directories(alpha_shape PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+target_link_libraries(alpha_shape
+  ${PCL_LIBRARIES}
+)
+
 target_include_directories(dbscan_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
+)
+
+target_link_libraries(dbscan_node
+  ${PCL_LIBRARIES}
 )
 
 ################################################################################
@@ -104,6 +132,11 @@ install(
 
 install(TARGETS
   dbscan_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS
+  alpha_shape
   DESTINATION lib/${PROJECT_NAME}
 )
 
