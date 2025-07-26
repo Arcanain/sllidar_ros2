@@ -76,12 +76,6 @@ def generate_launch_description():
             output='screen'),
 
         Node(
-            package='sllidar_ros2',
-            executable='pointcloudfilter',
-            name='point_cloud_filter',
-            output='screen'),
-
-        Node(
             package='rviz2',
             executable='rviz2',
             name='rviz2',

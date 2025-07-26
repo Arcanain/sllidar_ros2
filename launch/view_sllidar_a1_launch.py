@@ -14,7 +14,7 @@ def generate_launch_description():
     channel_type =  LaunchConfiguration('channel_type', default='serial')
     serial_port = LaunchConfiguration('serial_port', default='/dev/ttyUSB0')
     serial_baudrate = LaunchConfiguration('serial_baudrate', default='115200')
-    frame_id = LaunchConfiguration('frame_id', default='laser_frame')
+    frame_id = LaunchConfiguration('frame_id', default='laser')
     inverted = LaunchConfiguration('inverted', default='false')
     angle_compensate = LaunchConfiguration('angle_compensate', default='true')
     scan_mode = LaunchConfiguration('scan_mode', default='Sensitivity')
@@ -72,24 +72,6 @@ def generate_launch_description():
                          'angle_compensate': angle_compensate, 
                          'scan_mode': scan_mode}],
             output='screen'),
-
-        #Node(
-           #package='sllidar_ros2',
-           #executable='perception_obstacle',
-           #name='perception_obstacle',
-           #output='screen'),
-
-        #Node(
-           #package='sllidar_ros2',
-           #executable='dbscan_node',
-           #name='dbscan_node',
-           #output='screen'),        
-
-        Node(
-           package='sllidar_ros2',
-           executable='alpha_shape',
-           name='alpha_shape',
-           output='screen'),  
 
         Node(
             package='rviz2',
