@@ -31,8 +31,8 @@ options = {
 MAP_BUILDER.use_trajectory_builder_2d = true
 
 TRAJECTORY_BUILDER_2D.min_range = 0.
-TRAJECTORY_BUILDER_2D.max_range = 30.
-TRAJECTORY_BUILDER_2D.missing_data_ray_length = 5.
+TRAJECTORY_BUILDER_2D.max_range = 20.
+TRAJECTORY_BUILDER_2D.missing_data_ray_length = 8.
 TRAJECTORY_BUILDER_2D.use_imu_data = false
 TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = false
 
